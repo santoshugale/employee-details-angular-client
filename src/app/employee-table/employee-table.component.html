@@ -1,0 +1,29 @@
+<button *ngIf="!addMode" (click)="openAddComp()">Add New Employee</button>
+<div *ngIf="addMode">
+  <add-employee [employee]="employee" (employeeCreated)="addNewEmployee()"></add-employee>
+</div>
+<div *ngIf="!addMode">
+  Enter The Filter(Name/City):
+  <input type="text" [(ngModel)]="searchString" name="filter" style="align-content: left;">
+  <br>
+  <br>
+  <table>
+    <tr>
+      <th *ngFor="let colum of columns">
+        {{colum}}
+      </th>
+    </tr>
+    <tr *ngFor="let employee of employeeList | nameAndCityFilter:searchString">
+      <td>{{employee['Id']}}</td>
+      <td>{{employee['Name']}}</td>
+      <td>{{employee['Phone'] | phoneFilter}}</td>
+      <td>{{employee['City']}}</td>
+      <td>{{employee['Address1']}}</td>
+      <td>{{employee['Address2']}}</td>
+      <td>{{employee['PostalCode']}}</td>
+      <td>
+        <button (click)="editEmp(employee)">Edit</button>
+      </td>
+    </tr>
+  </table>
+</div>

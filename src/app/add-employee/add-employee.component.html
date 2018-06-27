@@ -1,0 +1,23 @@
+<form #form="ngForm" name="form">
+    <div>Name :
+        <input name="name" type="text" required minlength="4" [(ngModel)]="employee.Name" class="col-xs-12">
+    </div>
+    <div>Phone :
+        <input name="phone" type="number" [(ngModel)]="employee.Phone">
+    </div>
+    <div>City :
+        <input name="city" type="text" [(ngModel)]="employee.City">
+    </div>
+    <div>Address1 :
+        <input name="add1" type="text" [(ngModel)]="employee.Address1">
+    </div>
+    <div>Address2 :
+        <input name="add2" type="text" [(ngModel)]="employee.Address2">
+    </div>
+    <div>Postal Code :
+        <input name="pincode" type="number" [(ngModel)]="employee.PostalCode">
+    </div>
+    <div>
+        <button (click)="add()" [disabled]="form.invalid">Add</button>
+    </div>
+</form>
