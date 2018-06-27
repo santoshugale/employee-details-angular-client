@@ -17,4 +17,12 @@ export class EmployeeService {
     public addEmployee(employee: Employee): Observable<number> {
         return this.http.post<number>(this.host + 'AddEmployee', employee);
     }
+
+    public updateEmployee(employee: Employee): Observable<number> {
+        return this.http.put<number>(this.host + 'UpdateEmployee', employee);
+    }
+
+    public deleteEmployee(id: number): Observable<number> {
+        return this.http.delete<number>(this.host + 'DeleteEmployee/' + id);
+    }
 }
