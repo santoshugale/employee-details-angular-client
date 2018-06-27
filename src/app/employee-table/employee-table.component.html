@@ -9,8 +9,8 @@
   <br>
   <table>
     <tr>
-      <th *ngFor="let colum of columns">
-        {{colum}}
+      <th *ngFor="let column of columns">
+        {{column}}
       </th>
     </tr>
     <tr *ngFor="let employee of employeeList | nameAndCityFilter:searchString">
@@ -18,9 +18,6 @@
       <td>{{employee['Name']}}</td>
       <td>{{employee['Phone'] | phoneFilter}}</td>
       <td>{{employee['City']}}</td>
-      <td>{{employee['Address1']}}</td>
-      <td>{{employee['Address2']}}</td>
-      <td>{{employee['PostalCode']}}</td>
       <td>
         <button (click)="editEmp(employee)">Edit</button>
       </td>
