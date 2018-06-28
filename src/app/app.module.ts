@@ -2,12 +2,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { EmployeeTableComponent } from './employee-table/employee-table.component';
 import { NameAndCityFilterPipe } from './name-and-city-filter.pipe';
 import { PhoneFilterPipe } from './phone-filter.pipe';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddEditEmployeeComponent } from './add-employee/add-employee.component';
+
+const route: Routes = [
+  {
+    path: '',
+    component: EmployeeTableComponent
+  },
+  {
+    path: 'employee-list',
+    component: EmployeeTableComponent
+  },
+  {
+    path: 'add-employee',
+    component: AddEditEmployeeComponent
+  },
+  {
+    path: 'edit-employee/:id',
+    component: AddEditEmployeeComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -15,12 +35,13 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     EmployeeTableComponent,
     NameAndCityFilterPipe,
     PhoneFilterPipe,
-    AddEmployeeComponent
+    AddEditEmployeeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(route)
   ],
   providers: [],
   bootstrap: [AppComponent]

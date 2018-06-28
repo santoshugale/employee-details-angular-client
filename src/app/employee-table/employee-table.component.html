@@ -1,9 +1,7 @@
 <div *ngIf="addMode || editMode else empTable">
-  <add-employee [employee]="employee"
-    (employeeCreated)="addNewEmployee()"></add-employee>
 </div>
 <ng-template #empTable>
-  <button (click)="openAddComp()">Add New Employee</button>
+  <button (click)="addEmp()">Add New Employee</button>
   <div>
     Enter The Filter(Name/City):
     <input type="text"
@@ -24,7 +22,7 @@
         <td>{{employee['Phone'] | phoneFilter}}</td>
         <td>{{employee['City']}}</td>
         <td>
-          <button (click)="editEmp(employee)">Edit</button>
+          <button (click)="editEmp(employee.Id)">Edit</button>
         </td>
         <td>
           <button (click)="deleteEmp(employee.Id)">Delete</button>

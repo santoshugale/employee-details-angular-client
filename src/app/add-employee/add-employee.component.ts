@@ -1,17 +1,46 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+
 import { Employee } from '../employee-table/employee';
-import { EmployeeTableComponent } from '../employee-table/employee-table.component';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'add-employee',
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css']
 })
-export class AddEmployeeComponent {
-  @Input() public employee: Employee;
-  @Output() public employeeCreated: EventEmitter<void> = new EventEmitter<void>();
+export class AddEditEmployeeComponent implements OnInit {
+  public employee: Employee = new Employee(0, '', 0, '');
+  private addMode: boolean = false;
+
+  public constructor(private empService: EmployeeService,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  public ngOnInit(): void {
+    this.route.params.subscribe((paramMap: ParamMap) => {
+      if (paramMap['id']) {
+        const id: number = paramMap['id'];
+        this.empService.getEmployee(id).subscribe((emp: Employee) => {
+          this.employee = emp;
+        });
+      } else {
+        this.addMode = true;
+      }
+    })
+  }
 
   public add(): void {
-    this.employeeCreated.emit();
+    this.empService.addEmployee(this.employee).subscribe((value: number) => {
+      console.log(value);
+      this.router.navigateByUrl('employee-list');
+    });
+  }
+
+  public update(): void {
+    this.empService.updateEmployee(this.employee).subscribe((value: number) => {
+      console.log(value);
+      this.router.navigateByUrl('employee-list');
+    });
   }
 }
