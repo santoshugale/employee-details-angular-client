@@ -1,7 +1,16 @@
+<div>
+  Select Api <select name="api-select" (change)="apiChange($event.target.value)">
+    <option value="mockData">Mock Data</option>
+    <option value="restApi">Rest Api</option>
+  </select>
+</div>
+<br>
 <div *ngIf="addMode || editMode else empTable">
 </div>
 <ng-template #empTable>
   <button (click)="addEmp()">Add New Employee</button>
+  <br>
+  <br>
   <div>
     Enter The Filter(Name/City):
     <input type="text"

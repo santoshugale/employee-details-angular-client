@@ -11,9 +11,19 @@ import { Router } from '@angular/router';
 export class EmployeeTableComponent {
     private columns: string[] = [];
     private employeeList: Employee[];
+    
     public constructor(private empService: EmployeeService,
         private router: Router) {
         this.columns = ['Id', 'Name', 'Phone', 'City', 'Edit', 'Delete'];
+        this.getEmployeeList();
+    }
+
+    public apiChange(value: string): void {
+        if (value == 'mockData') {
+            this.empService.setUseMockData(true);
+        } else {
+            this.empService.setUseMockData(false);
+        }
         this.getEmployeeList();
     }
 
@@ -29,12 +39,16 @@ export class EmployeeTableComponent {
         this.empService.deleteEmployee(id).subscribe((value: number) => {
             console.log(value);
             this.getEmployeeList();
+        }, (error: Error) => {
+            console.log('can not delete the emp');
         });
     }
 
     private getEmployeeList(): void {
         this.empService.getEmployeeList().subscribe((empList: Employee[]) => {
             this.employeeList = empList;
+        }, (error: Error) => {
+            this.employeeList = [];
         });
     }
 }

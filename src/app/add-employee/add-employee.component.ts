@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { Employee } from '../employee-table/employee';
@@ -21,7 +21,7 @@ export class AddEditEmployeeComponent implements OnInit {
     this.route.params.subscribe((paramMap: ParamMap) => {
       if (paramMap['id']) {
         const id: number = paramMap['id'];
-        this.empService.getEmployee(id).subscribe((emp: Employee) => {
+        this.empService.getEmployee(+id).subscribe((emp: Employee) => {
           this.employee = emp;
         });
       } else {
@@ -34,12 +34,18 @@ export class AddEditEmployeeComponent implements OnInit {
     this.empService.addEmployee(this.employee).subscribe((value: number) => {
       console.log(value);
       this.router.navigateByUrl('employee-list');
+    }, (error: Error) => {
+      console.log('unable to add the emp');
+      this.router.navigateByUrl('employee-list');
     });
   }
 
   public update(): void {
     this.empService.updateEmployee(this.employee).subscribe((value: number) => {
       console.log(value);
+      this.router.navigateByUrl('employee-list');
+    }, (error: Error) => {
+      console.log('unable to add the emp');
       this.router.navigateByUrl('employee-list');
     });
   }
