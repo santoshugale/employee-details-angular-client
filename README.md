@@ -6,6 +6,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+# Web Api
+
+This project uses web api created using ASP.NET WEB Api 
+
+You can clone the web api project from https://github.com/santoshugale/EmployeeWebApi.git and run it so that angular client with communicate with that
+
+# Mock Data
+
+If you don't want to use web api as your back end(server) select mock data from drop down above the employee table
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
