@@ -1,5 +1,6 @@
 <div>
-  Select Api <select name="api-select" (change)="apiChange($event.target.value)">
+  Select Api <select name="api-select"
+    (change)="apiChange($event.target.value)">
     <option value="mockData">Mock Data</option>
     <option value="restApi">Rest Api</option>
   </select>
@@ -21,15 +22,27 @@
     <br>
     <table>
       <tr>
+        <th>
+          <input type="checkbox"
+            name="selectAll"
+            [(ngModel)]="allSelected"
+            (ngModelChange)="allSelectedClicked($event)"
+            id="selectAll">
+        </th>
         <th *ngFor="let column of columns">
           {{column}}
         </th>
       </tr>
-      <tr *ngFor="let employee of employeeList | nameAndCityFilter:searchString">
-        <td>{{employee['Id']}}</td>
-        <td>{{employee['Name']}}</td>
-        <td>{{employee['Phone'] | phoneFilter}}</td>
-        <td>{{employee['City']}}</td>
+      <tr *ngFor="let employee of employeeList | nameAndCityFilter:searchString ; let i=index">
+        <td><input type="checkbox"
+            name="select{{i}}"
+            [(ngModel)]="employee.Selected"
+            (ngModelChange)="employeeSelectionChange()"
+            id="select{{i}}"></td>
+        <td>{{employee.Id}}</td>
+        <td>{{employee.Name}}</td>
+        <td>{{employee.Phone | phoneFilter}}</td>
+        <td>{{employee.City}}</td>
         <td>
           <button (click)="editEmp(employee.Id)">Edit</button>
         </td>

@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
     styleUrls: ['./employee-table.component.css']
 })
 export class EmployeeTableComponent {
-    private columns: string[] = [];
-    private employeeList: Employee[];
-    
+    public allSelected: boolean = false;
+    public columns: string[] = [];
+    public employeeList: Employee[];
+
     public constructor(private empService: EmployeeService,
         private router: Router) {
         this.columns = ['Id', 'Name', 'Phone', 'City', 'Edit', 'Delete'];
@@ -44,6 +45,20 @@ export class EmployeeTableComponent {
         });
     }
 
+    public allSelectedClicked(value: boolean): void {
+        this.employeeList.forEach((employee: Employee) => {
+            employee.Selected = value;
+        });
+    }
+
+    public employeeSelectionChange() {
+        let allSelected = true;
+        this.employeeList.forEach((employee: Employee) => {
+            if (!employee.Selected)
+                allSelected = false;
+        });
+        this.allSelected = allSelected;
+    }
     private getEmployeeList(): void {
         this.empService.getEmployeeList().subscribe((empList: Employee[]) => {
             this.employeeList = empList;
