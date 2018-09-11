@@ -9,6 +9,7 @@ import { EmployeeTableComponent } from './employee-table/employee-table.componen
 import { NameAndCityFilterPipe } from './name-and-city-filter.pipe';
 import { PhoneFilterPipe } from './phone-filter.pipe';
 import { AddEditEmployeeComponent } from './add-employee/add-employee.component';
+import { SelectedEmployeeComponent } from './selected-employee/selected-employee.component';
 
 const route: Routes = [
   {
@@ -26,6 +27,10 @@ const route: Routes = [
   {
     path: 'edit-employee/:id',
     component: AddEditEmployeeComponent
+  },
+  {
+    path: 'selected-employee',
+    component: SelectedEmployeeComponent
   }
 ];
 
@@ -35,7 +40,8 @@ const route: Routes = [
     EmployeeTableComponent,
     NameAndCityFilterPipe,
     PhoneFilterPipe,
-    AddEditEmployeeComponent
+    AddEditEmployeeComponent,
+    SelectedEmployeeComponent
   ],
   imports: [
     BrowserModule,

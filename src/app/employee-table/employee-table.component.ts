@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Employee } from './employee';
 import { EmployeeService } from '../services/employee.service';
 import { Router } from '@angular/router';
+import { EmpService } from '../emp.service';
 
 @Component({
     selector: 'employee-table',
@@ -14,6 +15,7 @@ export class EmployeeTableComponent {
     public employeeList: Employee[];
 
     public constructor(private empService: EmployeeService,
+        private empSer: EmpService,
         private router: Router) {
         this.columns = ['Id', 'Name', 'Phone', 'City', 'Edit', 'Delete'];
         this.getEmployeeList();
@@ -59,6 +61,17 @@ export class EmployeeTableComponent {
         });
         this.allSelected = allSelected;
     }
+
+    public getSelecyedEmp(): void {
+        let ids: number[] = [];
+        this.employeeList.forEach((employee: Employee) => {
+            if (employee.Selected)
+                ids.push(employee.Id)
+        });
+        this.empSer.ids = ids;
+        this.router.navigateByUrl('selected-employee');
+    }
+
     private getEmployeeList(): void {
         this.empService.getEmployeeList().subscribe((empList: Employee[]) => {
             this.employeeList = empList;
