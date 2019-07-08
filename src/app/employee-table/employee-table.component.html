@@ -1,44 +1,39 @@
-<div>
-  Select Api <select name="api-select"
-    (change)="apiChange($event.target.value)">
-    <option value="mockData">Mock Data</option>
-    <option value="restApi">Rest Api</option>
-  </select>
-</div>
-<br>
-<div *ngIf="addMode || editMode else empTable">
-</div>
-<ng-template #empTable>
-  <button (click)="addEmp()">Add New Employee</button>
-  <br>
-  <br>
-  <div>
-    Enter The Filter(Name/City):
-    <input type="text"
-      [(ngModel)]="searchString"
-      name="filter"
-      style="align-content: left;">
-    <br>
-    <br>
-    <table>
+<form class="form">
+  <div class="input-group mb-3">
+    <select name="api-select" id="selectApi" class="form-control" (change)="apiChange($event.target.value)">
+      <option value="mockData">Mock Data</option>
+      <option value="restApi">Rest Api</option>
+    </select>
+    <div class="input-group-append">
+      <span class="input-group-text">Select Api</span>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search">
+    <div class="input-group-append">
+      <span class="input-group-text">Search</span>
+      <!-- <span class="input-group-text"><i class="fas fa-search"></i></span> -->
+    </div>
+  </div>
+  <div class="form-group">
+    <button (click)="addEmp()" class="btn btn-primary float-right">Add New Employee</button>
+  </div>
+  <table class="table table-bordered">
+    <thead class="thead-light">
       <tr>
         <th>
-          <input type="checkbox"
-            name="selectAll"
-            [(ngModel)]="allSelected"
-            (ngModelChange)="allSelectedClicked($event)"
+          <input type="checkbox" name="selectAll" [(ngModel)]="allSelected" (ngModelChange)="allSelectedClicked($event)"
             id="selectAll">
         </th>
         <th *ngFor="let column of columns">
           {{column}}
         </th>
       </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let employee of employeeList | nameAndCityFilter:searchString ; let i=index">
-        <td><input type="checkbox"
-            name="select{{i}}"
-            [(ngModel)]="employee.Selected"
-            (ngModelChange)="employeeSelectionChange()"
-            id="select{{i}}"></td>
+        <td><input type="checkbox" name="select{{i}}" [(ngModel)]="employee.Selected"
+            (ngModelChange)="employeeSelectionChange()" id="select{{i}}"></td>
         <td>{{employee.Id}}</td>
         <td>{{employee.Name}}</td>
         <td>{{employee.Phone | phoneFilter}}</td>
@@ -50,8 +45,7 @@
           <button (click)="deleteEmp(employee.Id)">Delete</button>
         </td>
       </tr>
-    </table>
-  </div>
-</ng-template>
-<button (click)="getSelecyedEmp()">GetSelectedOnAnotherPage</button>
-
+    </tbody>
+  </table>
+  <button (click)="getSelecyedEmp()">GetSelectedOnAnotherPage</button>
+</form>
